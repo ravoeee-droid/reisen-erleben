@@ -2,60 +2,102 @@
 
 Conversion-first Relaunch-Entwurf für Reisen & Erleben Motorradreisen Werner GmbH.
 
-## Prototype
+## Was im Prototype enthalten ist
 
-Der aktuelle Stand enthält:
-
-- emotionale Premium-Homepage mit echter R&E-Bildwelt
-- interaktiven 5-Step Tour-Finder
+- Emotionaler Premium-Homepage-Entwurf mit echten R&E-Bild-URLs
+- Tour-Finder als interaktiver 5-Step Funnel
 - Premium Tour Cards statt Tabellen
-- performante Depth-/3D-Effekte ohne schwere WebGL-Runtime
-- animierte Routenvisualisierung
+- 3D-/Depth-Effekte ohne schweren WebGL-Ballast
+- Animierte Route als performantes SVG
 - Fahrprofil-/Match-Konzept
-- Social → Website Deep-Link Journey
+- Social → Website Deep-Link Konzept
 - Club-Tour Rechner
 - WhatsApp CTA
-- ausgearbeitete Andalusien-Tourdetailseite
+- Ausgearbeitete Andalusien-Tourdetailseite
 - Admin-Control-Room Preview
-- Lead-Webhook für CRM / n8n / Make / WhatsApp-Automation
-- SEO/GEO mit semantischem Content und Structured Data
-- Reduced Motion und Accessibility-Grundlagen
+- Optionaler Lead-Webhook für CRM / n8n / Make / WhatsApp-Automation
+- SEO/GEO: strukturierte Daten, semantische Inhalte, FAQPage, TravelAgency, TouristTrip, Sitemap, Robots
+- Performance: keine Framework-Runtime im Prototype, kein schweres 3D, lazy-loaded Medien, reduced-motion Support
+- Accessibility: Skip Link, semantische Sections, Fokus-fähige Bedienelemente, Reduced Motion
 
-## Build
+## Admin-Vision
 
-Die größeren statischen Design-Assets liegen verlustfrei gzip-komprimiert unter `.source/`. Das hält diesen ersten atomaren Repo-Import kompakt. Der Build benötigt keine zusätzliche Library und entpackt die Dateien nach `dist/`.
+Der Admin-Bereich bündelt perspektivisch:
 
-```bash
-npm run build
-```
+1. Touren & Termine
+2. Plätze / Verfügbarkeit
+3. Leads & Buchungen
+4. Preise & Leistungen
+5. Hotels, Guides, Etappen
+6. Bilder & Videos
+7. Gästestimmen
+8. SEO/GEO Content
+9. Social Landingpages / UTM-Zuordnung
+10. Automationen / CRM / WhatsApp / E-Mail
 
-Lokale Vorschau:
+`/admin/` ist im Prototype nur eine UI-Demo und muss vor Produktionsbetrieb durch Auth geschützt werden.
 
-```bash
-npm run dev
-```
+## Automationen
 
-## Routen
+`/api/lead.js` kann per Environment Variables an externe Systeme weiterleiten:
 
-- `/` — Homepage / Conversion Journey
-- `/touren/andalusien/` — vollständige Tourdetailseite
-- `/admin/` — Admin-/Automation-Konzept (nur Preview; vor Produktion zwingend Auth ergänzen)
+- `LEAD_WEBHOOK_URL` → z. B. n8n, Make, CRM, Slack
+- `WHATSAPP_WEBHOOK_URL` → optionaler WhatsApp-Follow-up Workflow
 
-## Optionale Integrationen
+Keine Integration ist hardcodiert; produktive Credentials gehören ausschließlich in Environment Variables.
 
-`/api/lead.js` kann über Environment Variables an externe Systeme weiterleiten:
+## GitHub/Open-Source Upgrade-Pfade für Production
 
-- `LEAD_WEBHOOK_URL` — z. B. CRM, n8n, Make
-- `WHATSAPP_WEBHOOK_URL` — optionaler WhatsApp-Follow-up Workflow
+Der Prototype bleibt absichtlich extrem leicht. Für Production sind folgende Open-Source-Bausteine sinnvoll, wenn der Nutzen den Bundle-Impact rechtfertigt:
 
-Produktive Credentials gehören ausschließlich in Environment Variables.
+- `maplibre/maplibre-gl-js` — echte interaktive Destination-/Routenkarten (BSD-3-Clause)
+- `visgl/react-map-gl` — React-Integration für MapLibre (MIT)
+- `Turfjs/turf` — Geodaten, Distanzen, Bounding Boxes, Route-Logik (MIT)
+- `motiondivision/motion` — gezielte hochwertige Interaktionen (MIT)
+- `darkroomengineering/lenis` — optionales Smooth Scrolling, nur falls UX-Messung positiv (MIT)
+- `sanity-io/next-sanity` — CMS/Tourdaten im späteren Next.js Build (MIT)
+- `react-hook-form/react-hook-form` — komplexer finaler Buchungswizard (MIT)
+- `gpbl/react-day-picker` — zugängliche Terminfilter (MIT)
+- `serwist/serwist` — späterer „Meine Reise“-PWA-/Offline-Bereich (MIT)
 
-## Production-Roadmap
+**Prinzip:** nicht ein fertiges Travel-Template kopieren. Wir übernehmen nur bewährte Engines/Patterns und halten die R&E Art Direction vollständig individuell.
 
-Für die finale Version sind als gezielte Open-Source-Upgrades vorgesehen: MapLibre + react-map-gl für echte Routenkarten, Turf für Geodaten, Motion für hochwertige Interaktionen, Sanity für Tour-/Content-Daten, React Hook Form für den Buchungswizard und Serwist für einen späteren Offline-„Meine Reise“-Bereich.
+## Production Architektur
 
-Kein fertiges Travel-Template wird über die Marke gestülpt. Bewährte Engines und Patterns werden nur dort eingesetzt, wo sie Conversion, Erlebnis oder Wartbarkeit wirklich verbessern.
+Für die finale Version empfohlen:
+
+- Next.js App Router
+- Sanity für Touren/Termine/Content
+- Route-/Destination-Daten als strukturierte Entities
+- serverseitig gerenderte, indexierbare Tourseiten
+- image CDN / Next Image
+- Webhooks zu CRM/n8n/Make
+- optional WhatsApp Business Platform
+- Analytics + Consent Mode
+- Admin nur authentifiziert
+- automatische Restplatz-/Verfügbarkeitslogik
+- per-Tour Structured Data + FAQ + OG Images
 
 ## Release-Gates vor echtem Launch
 
-Der Stand ist ein Design-/Conversion-Prototype. Vor Produktionsfreigabe folgen u. a. finale Tourdaten-Migration, Bildoptimierung/CDN, Admin-Auth, DSGVO-/Tracking-Prüfung, Spam-Schutz, Web-Vitals/Lighthouse, Mobile Visual QA, Structured-Data-Validierung, Accessibility QA und Redirect-Migration der bestehenden URLs.
+Der jetzige Stand ist ein **Design-/Conversion-Prototype**, kein Produktionslaunch. Vor Freigabe:
+
+- Originalfotos final auswählen und lokal/CDN-optimiert einbinden
+- alle Tourdaten aus dem aktuellen Katalog migrieren
+- Texte/Reisepreise/Termine gegen Backend verifizieren
+- DSGVO/Consent/Tracking juristisch prüfen
+- Formulare mit Spam-Schutz + Double-Opt-In je nach Workflow
+- Admin Auth + Rollen/Rechte
+- Lighthouse/Web Vitals auf realer Preview
+- Mobile Visual QA auf mehreren Viewports
+- Structured Data Validation
+- Accessibility QA
+- 404/redirect migration plan für bestehende URLs
+
+## Lokale Vorschau
+
+```bash
+python3 -m http.server 3000
+```
+
+Dann `http://localhost:3000` öffnen.
