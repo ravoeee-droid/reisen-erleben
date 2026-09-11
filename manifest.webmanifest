@@ -1,9 +1,1 @@
-{
-  "name":"Reisen & Erleben Motorradreisen",
-  "short_name":"R&E Reisen",
-  "start_url":"/",
-  "display":"standalone",
-  "background_color":"#07130f",
-  "theme_color":"#07130f",
-  "description":"Geführte Motorradreisen mit Reisen & Erleben"
-}
+{"name":"Reisen & Erleben Motorradreisen","short_name":"R&E","start_url":"/","display":"standalone","background_color":"#0a0e0c","theme_color":"#0a0e0c"}
