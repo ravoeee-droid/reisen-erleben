@@ -1,1 +1,1 @@
-{"name":"reisen-erleben-high-end-v3","private":true,"version":"3.0.0","scripts":{"build":"node build.js"},"engines":{"node":">=20"}}
+{"name":"reisen-erleben-high-end-v4","private":true,"version":"4.0.0","scripts":{"build":"node build.js && node v4-build-hook.js"},"engines":{"node":">=20"}}
