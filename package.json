@@ -1,1 +1,14 @@
-{"name":"reisen-erleben-high-end-v5","private":true,"version":"5.0.1","scripts":{"build":"node build.js && node v4-build-hook.js && node v5-build-hook.js"},"engines":{"node":">=20"}}
+{
+  "name": "reisen-erleben-high-end-v6",
+  "private": true,
+  "version": "6.0.0",
+  "scripts": {
+    "build": "node build.js && node v4-build-hook.js && node v5-build-hook.js && node v6-build-hook.js && node v6-qa.js"
+  },
+  "dependencies": {
+    "sharp": "0.35.4"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
