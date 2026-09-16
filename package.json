@@ -1,9 +1,9 @@
 {
   "name": "reisen-erleben-high-end-v6",
   "private": true,
-  "version": "6.0.0",
+  "version": "6.1.0",
   "scripts": {
-    "build": "node build.js && node v4-build-hook.js && node v5-build-hook.js && node v6-build-hook.js && node v6-qa.js"
+    "build": "node build.js && node v4-build-hook.js && node v5-build-hook.js && node v6-build-hook.js && node v6-layout-fix.js && node v6-qa.js"
   },
   "dependencies": {
     "sharp": "0.35.4"
