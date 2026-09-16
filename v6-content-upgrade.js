@@ -18,13 +18,11 @@ function replaceOnce(pattern, replacement, label) {
   html = html.replace(pattern, replacement);
 }
 
-// Keep metadata factual and specific.
 html = html.replace(/<meta name="description" content="[^"]*">/i,
   '<meta name="description" content="Geführte Motorradreisen seit 2002: kleine Fahrgruppen, drei Fahrstile, persönliche Tourguides, Gepäckservice und 2.436 Gästebuch-Einträge.">');
 html = html.replace(/<meta property="og:description" content="[^"]*">/i,
   '<meta property="og:description" content="Seit 2002 geführte Motorradreisen mit kleinen Gruppen, persönlicher Organisation und einer Community, die immer wieder zurückkommt.">');
 
-// Add the content layer after the existing cache-busted V6 stylesheet.
 if (!html.includes('/assets/v6-content.css')) {
   html = html.replace('</head>', `<link rel="stylesheet" href="/assets/v6-content.css?v=${VERSION}"></head>`);
 }
@@ -87,7 +85,7 @@ const returners = `
     </div>
   </div>
 </section>`;
-replaceOnce(/(<section class="journeys"\b)/i, `${returners}\n$1`, 'journeys insertion point');
+replaceOnce(/(<section class="journeys")/i, `${returners}\n$1`, 'journeys insertion point');
 
 const serviceProof = `
 <section class="re-service-proof" aria-labelledby="re-service-title">
@@ -134,7 +132,6 @@ const clubCta = `
 </section>`;
 replaceOnce(/(<\/main>)/i, `${clubCta}\n$1`, 'main closing tag');
 
-// Guard against accidental duplicate injection or missing evidence architecture.
 for (const marker of ['re-proof-rail','re-returners','re-service-proof','re-heritage','re-club-cta','2.436','unsere 13. Reise']) {
   if (!html.includes(marker)) throw new Error(`STOP-SHIP: V6.2 marker missing: ${marker}`);
 }
